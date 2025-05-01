@@ -11,32 +11,28 @@
     <!-- Font Awesome icons -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
-    <!-- Google fonts (keeping them in case you use others) -->
-    <link href="https://fonts.googleapis.com/css?family=Saira+Extra+Condensed:500,700" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Muli:400,400i,800,800i" rel="stylesheet" />
-
     <!-- Core theme CSS -->
     <link href="css/styles.css" rel="stylesheet" />
 
-    <!-- Custom font override -->
+    <!-- Font and style overrides -->
     <style>
         body, h1, h2, h3, h4, h5, h6, p, a {
             font-family: Helvetica, Arial, sans-serif !important;
         }
-        h2 {
+        .navbar-nav .nav-link,
+        .subheading,
+        .resume-section-content h2,
+        h1, h2, h3, h4, h5, h6 {
             text-transform: none !important;
-        }
-        .resume-section h2 {
-            font-size: 2rem;
         }
     </style>
 </head>
 <body id="page-top">
-    <!-- Navigation-->
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="sideNav" style="background-color: #3f51b5;">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">George Paul</span>
-            <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="..." /></span>
+            <span class="d-none d-lg-block"><img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="assets/img/profile.jpg" alt="George Paul" /></span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive">
             <span class="navbar-toggler-icon"></span>
@@ -53,7 +49,7 @@
         </div>
     </nav>
 
-    <!-- Page Content-->
+    <!-- Page Content -->
     <div class="container-fluid p-0">
         <!-- About -->
         <section class="resume-section" id="about">
@@ -94,8 +90,8 @@
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
-                        <h3 class="mb-0">Bayesian Energy Use Estimation</h3>
-                        <div class="subheading mb-2">Research Project · MSc Dissertation</div>
+                        <h3 class="mb-0">Bayesian energy use estimation</h3>
+                        <div class="subheading mb-2">Research project · MSc dissertation</div>
                         <p>Designed a hierarchical Bayesian model to estimate Energy Use Intensity (EUI) in office buildings, integrating prior knowledge and emissions factors. The model provided confidence-weighted carbon scores for traceable, audit-aligned reporting. Linked model outputs to internal decarbonisation workflows and geospatial GPI indicators for transparency and real-world decision-making.</p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
@@ -103,17 +99,17 @@
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
-                        <h3 class="mb-0">Bayesian Neural Network for Supplier Emissions</h3>
-                        <div class="subheading mb-2">Personal Project</div>
-                        <p>Built a Bayesian Neural Network using PyTorch to predict carbon emissions from supply chain data. Incorporated posterior uncertainty to flag high-risk suppliers and enable risk-based prioritisation. Visualised and quantified top contributors (e.g., 343,162 ± 32,221 kgCO₂e). Enhanced model explainability with SHAP for stakeholder confidence. <a href="https://github.com/georgepaul171/Bayesian-Neural_Network.git" target="_blank" style="color: #3f51b5;">View Code</a></p>
+                        <h3 class="mb-0">Bayesian neural network for supplier emissions</h3>
+                        <div class="subheading mb-2">Personal project</div>
+                        <p>Built a Bayesian Neural Network using PyTorch to predict carbon emissions from supply chain data. Incorporated posterior uncertainty to flag high-risk suppliers and enable risk-based prioritisation. Visualised and quantified top contributors (e.g., 343,162 ± 32,221 kgCO₂e). Enhanced model explainability with SHAP for stakeholder confidence. <a href="https://github.com/georgepaul171/Bayesian-Neural_Network.git" target="_blank" style="color: #3f51b5;">View code</a></p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <div class="flex-grow-1">
-                        <h3 class="mb-0">Reinforcement Learning with PPO</h3>
-                        <div class="subheading mb-2">Academic Coursework</div>
+                        <h3 class="mb-0">Reinforcement learning with PPO</h3>
+                        <div class="subheading mb-2">Academic coursework</div>
                         <p>Trained a Proximal Policy Optimization (PPO) agent in the Boxing-v5 OpenAI Gym environment. Used a custom CNN feature extractor with orthogonal weight initialization to stabilize training and improve sample efficiency. Tuned hyperparameters, plotted learning curves, and implemented reward shaping for faster convergence. Evaluated agent performance under uncertainty.</p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
@@ -152,15 +148,15 @@
         <section class="resume-section" id="skills">
             <div class="resume-section-content">
                 <h2 class="mb-5">Skills</h2>
-                <div class="subheading mb-3">Core Competencies</div>
+                <div class="subheading mb-3">Core competencies</div>
                 <ul class="fa-ul mb-4">
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Machine Learning & Predictive Modelling</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Bayesian Inference & Probabilistic Programming</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Reinforcement Learning & Agent-Based Modelling</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Feature Engineering & Model Interpretability</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Machine learning & predictive modelling</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Bayesian inference & probabilistic programming</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Reinforcement learning & agent-based modelling</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Feature engineering & model interpretability</li>
                 </ul>
 
-                <div class="subheading mb-3">Tools & Languages</div>
+                <div class="subheading mb-3">Tools & languages</div>
                 <ul class="list-inline dev-icons">
                     <li class="list-inline-item"><i class="fab fa-python"></i></li>
                     <li class="list-inline-item"><i class="fab fa-git-alt"></i></li>
@@ -169,12 +165,12 @@
                 </ul>
                 <p class="mb-3">Proficient in Python, SQL, Git, Docker, and PyTorch. Experience with TensorFlow, JAX, Scikit-learn, and NumPy.</p>
 
-                <div class="subheading mb-3">Analytical Workflow</div>
+                <div class="subheading mb-3">Analytical workflow</div>
                 <ul class="fa-ul mb-0">
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Data Cleaning and Preprocessing</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Statistical Analysis and Bayesian Modelling</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Uncertainty Quantification and Risk Scoring</li>
-                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Reproducible and Transparent Pipelines</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Data cleaning and preprocessing</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Statistical analysis and Bayesian modelling</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Uncertainty quantification and risk scoring</li>
+                    <li><span class="fa-li"><i class="fas fa-check"></i></span> Reproducible and transparent pipelines</li>
                 </ul>
             </div>
         </section>
@@ -191,9 +187,9 @@
         <hr class="m-0" />
     </div>
 
-    <!-- Bootstrap core JS-->
+    <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
+    <!-- Core theme JS -->
     <script src="js/scripts.js"></script>
 </body>
 </html>
