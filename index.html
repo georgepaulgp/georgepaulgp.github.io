@@ -301,13 +301,34 @@
     <script>
         const form = document.querySelector("form");
         const message = document.getElementById("form-message");
-
-        form.addEventListener("submit", function () {
-            setTimeout(() => {
-                message.style.display = "block";
-            }, 1000); // Optional delay to simulate response
+      
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault(); // Prevent page reload
+      
+          const formData = new FormData(form);
+          try {
+            const response = await fetch("https://formspree.io/f/mnndpeoz", {
+              method: "POST",
+              headers: { 'Accept': 'application/json' },
+              body: formData
+            });
+      
+            if (response.ok) {
+              form.reset();
+              message.style.display = "block";
+      
+              // Hide message after 5 seconds
+              setTimeout(() => {
+                message.style.display = "none";
+              }, 5000);
+            } else {
+              alert("There was an error. Please try again.");
+            }
+          } catch (err) {
+            alert("Submission failed. Please check your connection and try again.");
+          }
         });
-    </script>
+      </script>
     
 </body>
 </html>
