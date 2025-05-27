@@ -172,6 +172,23 @@
                 <h2 class="mb-5">Projects</h2>
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
+                        <h3 class="mb-0">Advancing Hierarchical Bayesian Neural Networks</h3>
+                        <div class="subheading mb-2">Research Project · MSc dissertation · Continuation</div>
+                        <p>This research project currently investigates hierarchical Bayesian models for EUI predication in office buildings. My initial work has focused on demonstrating the power of uncertainty quantification for transparent carbon assessments. I've been refining how to integrate domain-informed priors with flexible likelihoods and utilize posterior predictive checks to enhance model robustness.</p>
+                        <p>My next step involves pushing the boundaries of the hierarchical Bayesian neural network (HBNN). The current implementation already offers a robust framework for Bayesian inference, incorporating various prior distributions (Normal, Laplace, Student's T, Mixture Gaussian) and providing valuable interpretability tools like SHAP values and feature importance.</p>
+                        <p>However, I aim to evolve this HBNN to fully embody the "true" hierarchical structure by:</p>
+                        <ul>
+                            <li><strong>Implementing Group-Specific Parameters:</strong> Introducing explicit group-level (hyper)parameters that govern the distributions of individual-level parameters for each distinct building category within the dataset. This means allowing the network weights to vary by building group, reflecting the natural heterogeneity and shared characteristics across different types of buildings.</li>
+                            <li><strong>Utilizing Non-Centered Parameterization:</strong> Adopting a non-centered parameterization for the individual-level weights. This technique significantly improves the efficiency and stability of sampling in complex hierarchical models, ensuring more reliable and accurate posterior estimates.</li>
+                            <li><strong>Refining Hyperparameter Priors:</strong> Further exploring hyperpriors for the group-level standard deviations. This will allow the model to learn the optimal degree of pooling between different building categories directly from the data, adapting its complexity to the inherent similarities and differences.</li>
+                            <li><strong>Enhancing KL Divergence Approximations:</strong> Investigating more sophisticated or accurate methods for calculating KL divergence, especially for non-Gaussian priors (like Student's T or Mixture Gaussians), potentially moving towards Monte Carlo approximations when analytical solutions are intractable.</li>
+                        </ul>
+                        <p>Ultimately, by building a more sophisticated HBNN that truly captures the hierarchical nature of building data, I aim to produce even more accurate and interpretable EUI predictions. This will further strengthen the foundation for informed environmental decision-making and support the development of transparent reporting tools in the commercial real estate sector. The goal is to move beyond mere prediction, providing a powerful framework for understanding and mitigating building emissions with quantified confidence.</p>
+                    </div>
+                    <div class="flex-shrink-0"><span class="text-primary">2025 (Ongoing Development)</span></div>
+                </div>
+                <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
+                    <div class="flex-grow-1">
                         <h3 class="mb-0">Bayesian Energy Use Estimation</h3>
                         <div class="subheading mb-2">Research Project · MSc dissertation</div>
                         <p>This research project focuses on estimating Energy Use Intensity in office buildings using hierarchical Bayesian models. What I found fascinating early on was how uncertainty quantification could be used to support transparent, audit-aligned carbon assessments, especially in grey areas where traditional point estimates fall short. I’m currently exploring how to blend domain-informed priors with flexible likelihoods and apply posterior predictive checks to improve robustness. I'm also interested in how model structure can reflect real-world building heterogeneity. The goal is to produce both accurate and interpretable outputs for environmental decision-making.</p>
