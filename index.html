@@ -533,86 +533,27 @@
                             This research proposal develops a Bayesian nonparametric model for the entire conditional quantile function of returns, treated as a smooth surface q(&alpha;, x) over quantile level &alpha; and predictors x. Rather than fitting separate quantile models independently, the idea is to model the full quantile surface jointly so that tail-risk forecasts remain coherent across multiple confidence levels.
                         </p>
                 
-                        <p class="mb-2">
-                            The core object is the conditional quantile function q(&alpha;, x), where &alpha; lies between 0 and 1 and x contains lagged returns and volatility-related predictors. The proposal places a functional Gaussian process prior over this surface:
-                            <br><br>
-                            <code>q(&alpha;, x) ~ GP(m<sub>0</sub>(&alpha;, x), K((&alpha;, x), (&alpha;&prime;, x&prime;)))</code>
-                            <br><br>
-                            where m<sub>0</sub>(&alpha;, x) is the prior mean function and K is a covariance kernel. A separable kernel is used so that dependence across quantile levels and dependence across predictors can be controlled separately:
-                            <br><br>
-                            <code>K((&alpha;, x), (&alpha;&prime;, x&prime;)) = K<sub>&alpha;</sub>(&alpha;, &alpha;&prime;) K<sub>x</sub>(x, x&prime;)</code>
-                        </p>
                 
-                        <p class="mb-2">
-                            A key modelling requirement is monotonicity: if &alpha;<sub>1</sub> &lt; &alpha;<sub>2</sub>, then q(&alpha;<sub>1</sub>, x) &le; q(&alpha;<sub>2</sub>, x). To enforce this, the proposal introduces a non-negative latent function f(&alpha;, x) and defines the quantile function as an integral:
-                            <br><br>
-                            <code>q(&alpha;, x) = &int;<sub>0</sub><sup>&alpha;</sup> f(u, x) du</code>
-                            <br><br>
-                            with <code>f(&alpha;, x) &ge; 0</code>. On a discrete grid of quantile levels, this becomes:
-                            <br><br>
-                            <code>q<sub>k</sub>(x) = &sum;<sub>j=1</sub><sup>k</sup> f<sub>j</sub>(x)&Delta;&alpha;</code>
-                            <br><br>
-                            which guarantees ordered quantiles by construction.
-                        </p>
-                
-                        <p class="mb-2">
-                            The latent function is built from an unconstrained Gaussian process g(&alpha;, x), transformed using a smooth positive mapping:
-                            <br><br>
-                            <code>g(&alpha;, x) ~ GP(0, K)</code>
-                            <br>
-                            <code>f(&alpha;, x) = log(1 + exp(g(&alpha;, x)))</code>
-                            <br><br>
-                            This softplus transformation ensures positivity while remaining differentiable, which is helpful for efficient optimisation and variational inference.
-                        </p>
-                
-                        <p class="mb-2">
-                            For inference, returns r<sub>t+1</sub> are linked to the quantile surface using the asymmetric Laplace likelihood for each quantile level &alpha;<sub>k</sub>. In compact form:
-                            <br><br>
-                            <code>p(r<sub>t+1</sub> | q<sub>k</sub>(x<sub>t</sub>), &alpha;<sub>k</sub>) &prop; exp(-&rho;<sub>&alpha;<sub>k</sub></sub>(r<sub>t+1</sub> - q<sub>k</sub>(x<sub>t</sub>)))</code>
-                            <br><br>
-                            where the quantile loss function is
-                            <br><br>
-                            <code>&rho;<sub>&alpha;</sub>(u) = u(&alpha; - 1(u &lt; 0))</code>.
-                        </p>
-                
-                        <p class="mb-2">
-                            Because the posterior is analytically intractable, the proposal uses constrained variational inference with sparse Gaussian process approximations. The variational objective is the evidence lower bound:
-                            <br><br>
-                            <code>L = E<sub>q</sub>[log p(r | g)] - KL(q(g) || p(g))</code>
-                            <br><br>
-                            where the first term encourages fit to the observed return data and the second penalises deviation from the prior. Sparse inducing-point approximations are used to make estimation feasible on long financial time series.
-                        </p>
-                
-                        <p class="mb-2">
-                            Empirically, the project focuses on S&amp;P 500 daily returns from 1990 to 2025, using predictors such as lagged returns, realised-volatility proxies, rolling volatility estimates and market indicators. The model will be assessed against GARCH, Bayesian parametric quantile regression and machine-learning quantile benchmarks using quantile loss, CRPS, VaR/ES backtests and the economic performance of volatility-timing strategies under transaction costs.
-                        </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2026</span></div>
                 </div>    
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
-                        <h3 class="mb-0">Advancing Hierarchical Bayesian Neural Networks for Building Energy Use</h3>
-                        <div class="subheading mb-2">MSc research project · Distinction (81%)</div>
-                        <p class="mb-2">
-                            For my MSc dissertation, I developed hierarchical Bayesian neural network models for predicting Energy‑Use Intensity (EUI) in office buildings. The goal was to move beyond single point forecasts and produce uncertainty‑aware predictions that remain interpretable for carbon and energy‑performance assessment. The models combined building‑level covariates (e.g. floor area, age, location and usage type) with a hierarchical structure that captures group‑level effects and heterogeneity across building segments.
-                        </p>
-                        <p class="mb-2">
-                            Technically, I used Bayesian neural networks with group‑specific parameters and hyperpriors that pool information across buildings while allowing segment‑level deviations. Priors were chosen to favour parsimonious structures but still permit non‑linear responses in key drivers of energy use. Posterior inference was implemented using Hamiltonian Monte Carlo and variational techniques; posterior predictive checks, prior‑sensitivity analysis and out‑of‑sample calibration diagnostics were used to stress‑test model assumptions. The result was a set of EUI forecasts with credible intervals that support transparent, audit‑aligned building benchmarking rather than opaque black‑box predictions.
-                        </p>
+                        <h3 class="mb-0">Adaptive Elastic Horseshoe Prior for Building Energy Modelling</h3>
+                        <div class="subheading mb-2">MSc dissertation · Distinction (81%)</div>
                         <p class="mb-0">
-                            This work directly informed later projects on emissions traceability and carbon‑risk modelling, and gave me hands‑on experience balancing model flexibility, interpretability and computational cost in real sustainability datasets.
-                        </p>
-                    </div>
-                    <div class="flex-shrink-0"><span class="text-primary">2025 (ongoing development)</span></div>
-                </div>
-
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0">Bayesian Energy Use Estimation</h3>
-                        <div class="subheading mb-2">MSc – hierarchical Bayesian models</div>
-                        <p class="mb-2">
-                            Earlier in the MSc, I implemented hierarchical Bayesian models for EUI estimation as a precursor to the neural‑network work. Using priors informed by engineering knowledge and building physics, these models showed how uncertainty‑aware quantile estimates could support transparent, audit‑aligned carbon assessments, particularly where traditional point estimates are fragile or data coverage is sparse.
+                            My MSc research developed an Adaptive Elastic Horseshoe (AEH) prior for Bayesian
+                            building energy modelling, designed for heterogeneous data with both sparse and
+                            correlated predictors. The model estimates Energy Use Intensity using
+                            <em>y = Xw + ε</em>, with <em>ε ~ N(0, α<sup>-1</sup>I)</em>, while the AEH prior places
+                            <em>w<sub>j</sub> ~ N(0, λ<sub>j</sub><sup>2</sup>τ<sup>2</sup>)</em> and adaptively balances
+                            sparsity and grouping through the penalty
+                            <em>α|w<sub>j</sub>| + (1 - α)w<sub>j</sub><sup>2</sup></em>. Unlike standard horseshoe or fixed
+                            elastic-net regularisation, AEH updates its shrinkage behaviour during inference using
+                            feature-importance and uncertainty feedback. The framework achieved
+                            <em>R<sup>2</sup> = 0.939</em>, with strong predictive performance while preserving
+                            interpretability and calibrated uncertainty.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
