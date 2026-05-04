@@ -10,21 +10,22 @@
     <title>George Paul – Data Scientist</title>
 
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
-    <!-- Font Awesome icons -->
+    <!-- Font Awesome -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    <!-- Bootstrap / theme CSS -->
+    <!-- Core theme CSS (Bootstrap + layout) -->
     <link href="css/styles.css" rel="stylesheet" />
 
     <style>
         :root {
-            --color-bg: #f5f6fa;
+            /* Neutral, conservative palette */
+            --color-bg: #f5f5f5;
             --color-surface: #ffffff;
-            --color-surface-alt: #eef0f7;
+            --color-surface-alt: #f0f0f0;
             --color-text: #111827;
             --color-text-muted: #6b7280;
-            --color-accent: #3f51b5;
-            --color-accent-dark: #303f9f;
-            --color-border: rgba(15, 23, 42, 0.1);
+            --color-accent: #946c2a;           /* warm neutral accent */
+            --color-accent-dark: #7a5620;
+            --color-border: rgba(15, 23, 42, 0.12);
             --radius-sm: 0.375rem;
             --radius-md: 0.5rem;
             --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
@@ -36,7 +37,8 @@
         }
 
         body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                Helvetica, Arial, sans-serif !important;
             background: var(--color-bg);
             color: var(--color-text);
         }
@@ -47,49 +49,31 @@
             text-transform: none !important;
         }
 
+        /* Keep original fixed-sidebar layout but restyle */
         .navbar {
-            background-color: var(--color-accent) !important;
+            background-color: #202020 !important;
             box-shadow: var(--shadow-md);
         }
 
         .navbar-brand span,
         .navbar-nav .nav-link {
-            font-size: 0.98rem;
-            letter-spacing: 0.02em;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
         }
 
-        .social-icons {
-            margin-bottom: 1.75rem;
+        .navbar-nav .nav-link.active {
+            color: var(--color-accent) !important;
         }
 
-        .social-icon {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 2.4rem;
-            height: 2.4rem;
-            border-radius: 999px;
-            border: 1px solid rgba(15, 23, 42, 0.1);
-            background: var(--color-surface);
-            color: var(--color-accent);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease, background 0.18s ease;
-        }
-
-        .social-icon + .social-icon {
-            margin-left: 0.5rem;
-        }
-
-        .social-icon:hover {
-            transform: translateY(-1px) scale(1.05);
-            box-shadow: var(--shadow-md);
-            background: var(--color-accent);
-            color: #ffffff;
-        }
-
+        /* Hero section at top (inside main, above sidebar content) */
         .hero-section {
-            padding: 7rem 1.5rem 4.5rem 1.5rem;
-            background: radial-gradient(circle at top left, #e0e3ff 0, #f5f6fa 40%, #f5f6fa 100%);
+            padding: 7rem 1.5rem 4rem 1.5rem;
+            background: linear-gradient(
+                135deg,
+                #f3f3f3 0%,
+                #ffffff 40%,
+                #f5f1ea 100%
+            );
             text-align: center;
         }
 
@@ -99,7 +83,7 @@
         }
 
         .hero-section h1 {
-            margin-bottom: 1.25rem;
+            margin-bottom: 0.75rem;
             font-size: clamp(2.6rem, 4vw, 3.4rem);
             letter-spacing: -0.03em;
         }
@@ -108,27 +92,56 @@
             font-size: 1.05rem;
             color: var(--color-text-muted);
             max-width: 42rem;
-            margin: 0 auto 1.75rem auto;
+            margin: 0 auto 1.5rem auto;
         }
 
         .hero-highlight {
             font-weight: 600;
-            color: var(--color-accent-dark);
         }
 
         .hero-keywords {
             font-size: 0.95rem;
             color: var(--color-text-muted);
-            margin-bottom: 2.2rem;
+            margin-bottom: 2rem;
         }
 
         .hero-cta {
             margin-bottom: 1.75rem;
         }
 
+        .social-icons {
+            margin-bottom: 1.5rem;
+        }
+
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.4rem;
+            height: 2.4rem;
+            border-radius: 999px;
+            border: 1px solid var(--color-border);
+            background: var(--color-surface);
+            color: #374151;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.18s ease, box-shadow 0.18s ease,
+                        background 0.18s ease, color 0.18s ease;
+        }
+
+        .social-icon + .social-icon {
+            margin-left: 0.5rem;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+            background: var(--color-accent);
+            color: #ffffff;
+        }
+
         .btn-primary,
         .cv-btn {
-            background-color: var(--color-accent);
+            background-color: #333333;
             color: #ffffff;
             border: none;
             border-radius: 999px;
@@ -137,31 +150,33 @@
             font-size: 0.95rem;
             margin: 0.25rem 0.35rem;
             box-shadow: var(--shadow-sm);
-            transition: background 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+            transition: background 0.18s ease, transform 0.18s ease,
+                        box-shadow 0.18s ease;
         }
 
         .btn-outline-primary {
             border-radius: 999px;
-            border: 1px solid var(--color-accent);
-            color: var(--color-accent);
+            border: 1px solid #333333;
+            color: #333333;
             background: transparent;
             padding: 0.6rem 1.4rem;
             font-weight: 600;
             font-size: 0.95rem;
             margin: 0.25rem 0.35rem;
             box-shadow: none;
-            transition: background 0.18s ease, color 0.18s ease, transform 0.18s ease;
+            transition: background 0.18s ease, color 0.18s ease,
+                        transform 0.18s ease;
         }
 
         .btn-primary:hover,
         .cv-btn:hover {
-            background-color: var(--color-accent-dark);
+            background-color: #111111;
             transform: translateY(-1px);
             box-shadow: var(--shadow-md);
         }
 
         .btn-outline-primary:hover {
-            background: var(--color-accent);
+            background: #333333;
             color: #ffffff;
             transform: translateY(-1px);
         }
@@ -169,7 +184,7 @@
         .fade-in {
             opacity: 0;
             transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
+            transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
         .fade-in.visible {
@@ -187,13 +202,13 @@
         }
 
         .resume-section-content {
-            max-width: 980px;
+            max-width: 960px;
             margin: 0 auto;
         }
 
         .resume-section h2 {
             font-size: 1.8rem;
-            margin-bottom: 2.25rem;
+            margin-bottom: 2rem;
         }
 
         .subheading {
@@ -202,7 +217,7 @@
         }
 
         .text-primary {
-            color: var(--color-accent) !important;
+            color: var(--color-accent-dark) !important;
         }
 
         hr.m-0 {
@@ -211,8 +226,8 @@
 
         .badge-skill {
             display: inline-block;
-            background: #e3e6f3;
-            color: var(--color-accent);
+            background: #e2e2e2;
+            color: #374151;
             border-radius: 999px;
             padding: 0.25em 0.9em;
             margin: 0.15em 0.25em 0.15em 0;
@@ -234,18 +249,14 @@
         form input:focus,
         form textarea:focus {
             outline: none;
-            border-color: var(--color-accent);
-            box-shadow: 0 0 0 1px rgba(63, 81, 181, 0.15);
-        }
-
-        form .btn {
-            margin-top: 0.5rem;
+            border-color: #333333;
+            box-shadow: 0 0 0 1px rgba(17, 17, 17, 0.2);
         }
 
         #form-message {
             margin-top: 1rem;
             display: none;
-            color: #15803d;
+            color: #166534;
             font-weight: 500;
         }
 
@@ -253,7 +264,7 @@
             display: none;
             width: 22px;
             height: 22px;
-            border: 3px solid var(--color-accent);
+            border: 3px solid #333333;
             border-top: 3px solid #ffffff;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -265,26 +276,28 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* Dark mode */
+        /* Dark mode: subtle, still neutral */
         .dark-mode {
-            background: #0b0c10 !important;
+            background: #121212 !important;
             color: #e5e7eb !important;
         }
 
         .dark-mode body {
-            background: #0b0c10;
+            background: #121212;
         }
 
         .dark-mode .hero-section {
-            background: radial-gradient(circle at top left, #111827 0, #020617 50%, #020617 100%);
+            background: linear-gradient(
+                135deg,
+                #18181b 0%,
+                #020617 50%,
+                #111827 100%
+            );
         }
 
-        .dark-mode .resume-section {
-            background: #020617;
-        }
-
+        .dark-mode .resume-section,
         .dark-mode .resume-section:nth-of-type(even) {
-            background: #020617;
+            background: #18181b;
         }
 
         .dark-mode .resume-section-content {
@@ -293,7 +306,7 @@
 
         .dark-mode .navbar {
             background-color: #020617 !important;
-            box-shadow: 0 1px 0 rgba(15, 23, 42, 0.9);
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.9);
         }
 
         .dark-mode .social-icon {
@@ -303,33 +316,28 @@
         }
 
         .dark-mode .social-icon:hover {
-            background: #3f51b5;
+            background: #333333;
         }
 
         .dark-mode .btn-primary,
         .dark-mode .cv-btn {
-            background-color: #222b45 !important;
+            background-color: #333333 !important;
             color: #ffffff !important;
         }
 
-        .dark-mode .btn-primary:hover,
-        .dark-mode .cv-btn:hover {
-            background-color: #3f51b5 !important;
-        }
-
         .dark-mode .btn-outline-primary {
-            border-color: #818cf8;
+            border-color: #d4d4d4;
             color: #e5e7eb;
         }
 
         .dark-mode .btn-outline-primary:hover {
-            background: #4f46e5;
-            border-color: #4f46e5;
+            background: #d4d4d4;
+            color: #111827;
         }
 
         .dark-mode .badge-skill {
-            background: #111827;
-            color: #c7d2fe;
+            background: #27272a;
+            color: #e5e7eb;
         }
 
         .dark-toggle {
@@ -338,7 +346,7 @@
             right: 1.25rem;
             z-index: 9999;
             background: #ffffff;
-            color: var(--color-accent);
+            color: #111827;
             border: 1px solid rgba(148, 163, 184, 0.7);
             border-radius: 999px;
             width: 44px;
@@ -361,9 +369,6 @@
             .hero-section {
                 padding-top: 6rem;
             }
-            .navbar {
-                background-color: #111827 !important;
-            }
         }
     </style>
 </head>
@@ -371,15 +376,15 @@
     <!-- Dark mode toggle -->
     <button class="dark-toggle" id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
 
-    <!-- Hero -->
+    <!-- Hero (kept as a standalone section above main resume content) -->
     <section class="hero-section fade-in">
         <div class="hero-inner">
             <h1>George Paul</h1>
             <p class="hero-tagline">
-                <span class="hero-highlight">Data Scientist</span> specialising in Bayesian machine learning, tail‑risk modelling, and sustainable finance.
+                <span class="hero-highlight">Data Scientist</span> specialising in Bayesian machine learning, tail‑risk modelling and sustainability.
             </p>
             <p class="hero-keywords">
-                Bayesian nonparametrics · Gaussian processes · Quantile regression · Smart cities & emissions traceability
+                Bayesian nonparametrics · Gaussian processes · Quantile‑based risk · Smart cities &amp; emissions traceability
             </p>
             <div class="hero-cta">
                 <a href="#projects" class="btn-primary">View projects</a>
@@ -401,7 +406,7 @@
         </div>
     </section>
 
-    <!-- Navigation -->
+    <!-- Navigation (same structure/order as original StartBootstrap resume) -->
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="sideNav">
         <a class="navbar-brand js-scroll-trigger" href="#page-top">
             <span class="d-block d-lg-none">George Paul</span>
@@ -416,7 +421,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">About</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#experience">Experience</a></li>
-                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects & Research</a></li>
+                <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#projects">Projects</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#education">Education</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#skills">Skills</a></li>
                 <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#interests">Interests</a></li>
@@ -425,7 +430,7 @@
         </div>
     </nav>
 
-    <!-- Page Content -->
+    <!-- Page Content (sections in the same order you had) -->
     <div class="container-fluid p-0">
 
         <!-- About -->
@@ -433,16 +438,16 @@
             <div class="resume-section-content">
                 <div class="subheading mb-3">
                     London, United Kingdom · (+44) 7841 402737 ·
-                    <a href="mailto:gpaul2002@gmail.com" style="color: var(--color-accent);">gpaul2002@gmail.com</a>
+                    <a href="mailto:gpaul2002@gmail.com" style="color: inherit; text-decoration: underline;">gpaul2002@gmail.com</a>
                 </div>
                 <p class="lead mb-3">
                     I am an Analyst in the Advisory team at Buro Happold and a Data Science graduate from the University of Bath, with a Mathematics BSc from the University of Manchester.
                 </p>
                 <p class="mb-3">
-                    My work centres on Bayesian machine learning, probabilistic modelling, and building practical tools for risk and sustainability. I enjoy taking messy, real‑world data and turning it into interpretable models that support traceable decision‑making – from energy‑use estimation and digital twins to financial tail‑risk forecasting.
+                    My work focuses on Bayesian machine learning, probabilistic modelling, and building practical systems for risk and sustainability. I enjoy taking messy, real‑world data and turning it into interpretable models that support traceable decision‑making – from energy‑use estimation and smart‑city digital twins through to financial tail‑risk forecasting.
                 </p>
                 <p class="mb-0">
-                    I am particularly interested in Bayesian nonparametric methods, Gaussian processes, and quantile‑based risk measures, and in connecting these models to real economic value through portfolio rules and smart‑city applications.
+                    I am particularly interested in Bayesian nonparametrics, Gaussian processes and quantile‑based risk measures, and in connecting these methods to real economic value and operational decision‑making.
                 </p>
             </div>
         </section>
@@ -458,8 +463,8 @@
                         <h3 class="mb-0">Analyst – Advisory</h3>
                         <div class="subheading mb-2">Buro Happold</div>
                         <ul>
-                            <li>Working on Riyadh Expo 2030, contributing to the smart‑city strategy and digital‑twin workstreams.</li>
-                            <li>Serving as an AI Super User, guiding responsible use of AI tools across Advisory and exploring applied ML use‑cases.</li>
+                            <li>Working on Riyadh Expo 2030, contributing to smart‑city strategy and digital‑twin workstreams.</li>
+                            <li>Serving as an AI Super User, guiding responsible use of AI tools in Advisory and shaping applied AI use‑cases.</li>
                         </ul>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2025 – Present</span></div>
@@ -470,9 +475,9 @@
                         <h3 class="mb-0">Data Scientist Intern</h3>
                         <div class="subheading mb-2">GreenPlace</div>
                         <ul>
-                            <li>Developed hierarchical Bayesian models for building‑level emissions and energy‑use estimation with uncertainty quantification.</li>
-                            <li>Designed the GreenPlace Index (GPI) to quantify building energy performance, now used for internal monitoring.</li>
-                            <li>Built geospatial carbon‑risk models and engineered features from 150k+ observations to improve Energy‑Use Intensity prediction.</li>
+                            <li>Developed hierarchical Bayesian models for building‑level emissions and Energy‑Use Intensity with uncertainty quantification.</li>
+                            <li>Designed the GreenPlace Index (GPI) to quantify building energy performance, used for internal monitoring.</li>
+                            <li>Built geospatial carbon‑risk models and engineered features from 150k+ observations to improve prediction accuracy.</li>
                             <li>Explored system‑dynamics and agent‑based simulations for carbon feedback loops in commercial real estate.</li>
                         </ul>
                     </div>
@@ -484,7 +489,7 @@
                         <h3 class="mb-0">Physics and Sustainability Intern</h3>
                         <div class="subheading mb-2">Buro Happold</div>
                         <ul>
-                            <li>Performed thermal simulations and energy‑use analysis for buildings, supporting sustainability‑focused design decisions.</li>
+                            <li>Conducted thermal simulations and energy‑use analysis for buildings, supporting sustainability‑focused design decisions.</li>
                         </ul>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">June 2019</span></div>
@@ -513,56 +518,49 @@
                 </div>
             </div>
         </section>
-        <hr class=" m-0" />
+        <hr class="m-0" />
 
-        <!-- Projects & Research -->
+        <!-- Projects -->
         <section class="resume-section fade-in" id="projects">
             <div class="resume-section-content">
-                <h2 class="mb-5">Projects & Research</h2>
+                <h2 class="mb-5">Projects</h2>
 
-                <!-- New PhD / research proposal -->
+                <!-- Research proposal (no PhD wording) -->
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
-                        <h3 class="mb-1">Bayesian Nonparametric Quantile Function Modelling for Tail Risk Forecasting</h3>
-                        <div class="subheading mb-2">Research proposal – Functional Gaussian Process approach to volatility timing</div>
+                        <h3 class="mb-1">Bayesian Nonparametric Quantile Function Modelling for Tail Risk</h3>
+                        <div class="subheading mb-2">Research proposal – functional Gaussian process quantile regression</div>
                         <p class="mb-2">
-                            This project proposes a monotone functional Gaussian process quantile regression model that treats the entire conditional quantile function as a smooth surface over quantile level and predictors. The aim is to deliver calibrated joint VaR and ES forecasts with full uncertainty quantification, avoiding quantile crossing via a non‑negative latent process over the quantile index and constrained variational inference.
+                            This research proposal develops a monotone functional Gaussian process quantile regression model that treats the entire conditional quantile function as a smooth surface over quantile level and predictors. The model enforces monotonicity via a non‑negative latent process over the quantile index and uses constrained variational inference, avoiding quantile crossing while remaining computationally tractable.
                         </p>
                         <p class="mb-2">
-                            Empirically, the work evaluates S&amp;P&nbsp;500 daily returns from 1990–2025, comparing tail calibration, proper scoring rules, and volatility‑timing performance against GARCH, Bayesian parametric quantile regression, and machine‑learning baselines under realistic transaction costs.
+                            The empirical programme focuses on S&amp;P&nbsp;500 daily returns (1990–2025), testing statistical calibration and the economic value of volatility‑timing strategies against GARCH, Bayesian parametric quantile regression and machine‑learning benchmarks under realistic transaction costs.
                         </p>
                         <a href="assets/Research_Proposal.pdf" target="_blank" class="btn btn-outline-primary">
-                            <i class="fas fa-file-pdf me-1"></i> Proposal PDF
+                            <i class="fas fa-file-pdf me-1"></i> Research proposal
                         </a>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">2026 (Proposed PhD)</span></div>
+                    <div class="flex-shrink-0"><span class="text-primary">2026</span></div>
                 </div>
-
-                <hr class="my-4" />
-
-                <div class="subheading mb-3">Bayesian modelling for energy and emissions</div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">Advancing Hierarchical Bayesian Neural Networks for Building Energy Use</h3>
                         <div class="subheading mb-2">MSc research project · Distinction (81%)</div>
                         <p class="mb-2">
-                            Hierarchical Bayesian models were developed for Energy‑Use Intensity prediction in office buildings, combining domain‑informed priors with flexible likelihoods and posterior predictive checks. The work emphasised uncertainty quantification for transparent carbon assessments and explored how model structure reflects building heterogeneity.
-                        </p>
-                        <p class="mb-2">
-                            The resulting models produced accurate, interpretable EUI forecasts with quantified uncertainty, strengthening the foundation for audit‑aligned emissions reporting and decision‑support tools in commercial real estate.
+                            Developed hierarchical Bayesian neural network models for office‑building Energy‑Use Intensity prediction, combining domain‑informed priors, flexible likelihoods and posterior predictive checks. The work emphasised uncertainty quantification for transparent carbon assessments and model structures that reflect building heterogeneity.
                         </p>
                         <a href="https://github.com/georgepaul171/Research-Project" target="_blank" class="btn btn-primary">Repository</a>
                     </div>
-                    <div class="flex-shrink-0"><span class="text-primary">2025 (Ongoing development)</span></div>
+                    <div class="flex-shrink-0"><span class="text-primary">2025 (ongoing development)</span></div>
                 </div>
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">Bayesian Energy Use Estimation</h3>
-                        <div class="subheading mb-2">MSc dissertation – hierarchical Bayesian quantile models</div>
+                        <div class="subheading mb-2">MSc dissertation – hierarchical Bayesian models</div>
                         <p class="mb-2">
-                            This project focused on estimating Energy‑Use Intensity for office buildings using hierarchical Bayesian models. It demonstrated how uncertainty‑aware quantile estimates can support transparent, audit‑aligned carbon assessments, particularly in settings where traditional point estimates are fragile.
+                            Estimated Energy‑Use Intensity in office buildings using hierarchical Bayesian models. The project showed how uncertainty‑aware quantile estimates can support transparent, audit‑aligned carbon assessments where traditional point estimates are fragile.
                         </p>
                         <a href="https://github.com/georgepaul171/Research-Project" target="_blank" class="btn btn-outline-primary">Repository</a>
                     </div>
@@ -574,38 +572,26 @@
                         <h3 class="mb-0">Intelligent Carbon Risk Management</h3>
                         <div class="subheading mb-2">Bayesian framework for embedded‑carbon traceability</div>
                         <p class="mb-2">
-                            Designed a traceable Bayesian framework for embedded emissions across supply chains, producing confidence‑weighted emissions scores and high‑risk‑supplier flags. The prototype integrates structured and semi‑structured data, scenario‑based validation, and audit‑style simulations aligned with regulations such as CA&nbsp;SB&nbsp;253.
+                            Designed a traceable Bayesian framework for embedded emissions in supply chains, producing confidence‑weighted emissions scores and high‑risk‑supplier flags. The prototype integrates structured and semi‑structured data, scenario‑based validation and audit‑style simulations aligned with regulations such as CA&nbsp;SB&nbsp;253.
                         </p>
                         <a href="https://github.com/georgepaul171/bayesian-proposal" target="_blank" class="btn btn-outline-primary">Repository</a>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025–2026</span></div>
                 </div>
 
-                <div class="subheading mb-3 mt-4">Machine learning & systems</div>
-
-                <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
+                <div class="d-flex flex-column flex-md-row justify-content-between">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">Reinforcement Learning with PPO</h3>
                         <div class="subheading mb-2">Coursework – OpenAI Gym Boxing‑v5</div>
-                        <p class="mb-2">
-                            Implemented and tuned a PPO agent with a custom CNN feature extractor and orthogonal initialisation in the Boxing‑v5 environment. Explored the relationship between reward shaping, policy updates, and long‑run agent behaviour, motivating future work on RL in real‑world control systems.
+                        <p class="mb-0">
+                            Implemented and tuned a PPO agent in the Boxing‑v5 environment, with a custom CNN feature extractor and orthogonal initialisation. Explored how reward shaping and policy‑update dynamics influence long‑run behaviour, motivating applications of RL in real‑world control problems.
                         </p>
-                        <a href="https://github.com/mrgw21/rl-multiagent-boxing" target="_blank" class="btn btn-outline-primary">Repository</a>
+                        <a href="https://github.com/mrgw21/rl-multiagent-boxing" target="_blank" class="btn btn-outline-primary mt-2">Repository</a>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
                 </div>
 
-                <div class="d-flex flex-column flex-md-row justify-content-between">
-                    <div class="flex-grow-1">
-                        <h3 class="mb-0">Digital Twin & Software Exploration</h3>
-                        <div class="subheading mb-2">Personal project – household‑level energy digital twin</div>
-                        <p class="mb-0">
-                            Early‑stage Python project exploring digital‑twin concepts for a household’s energy use, combining data ingestion, basic simulation, and ideas for linking ML‑based forecasts to interactive visual interfaces.
-                        </p>
-                    </div>
-                    <div class="flex-shrink-0"><span class="text-primary">2025 (Ongoing)</span></div>
-                </div>
-
+                <!-- Digital twin project removed as requested -->
             </div>
         </section>
         <hr class="m-0" />
@@ -619,7 +605,7 @@
                     <div class="flex-grow-1">
                         <h3 class="mb-0">University of Bath</h3>
                         <div class="subheading mb-2">MSc Data Science</div>
-                        <p>Distinction (overall grade ≈ 80%). Dissertation on hierarchical Bayesian neural networks for building energy‑use estimation.</p>
+                        <p>Distinction (overall ≈ 80%). Dissertation on hierarchical Bayesian neural networks for building energy‑use estimation.</p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2024 – August 2025</span></div>
                 </div>
@@ -628,7 +614,7 @@
                     <div class="flex-grow-1">
                         <h3 class="mb-0">University of Manchester</h3>
                         <div class="subheading mb-2">BSc Mathematics</div>
-                        <p>Upper Second Class Honours (2:1), with modules in probability, statistics, optimisation, and numerical analysis forming the foundation for later ML work.</p>
+                        <p>Upper Second Class Honours (2:1), with a focus on probability, statistics, optimisation and numerical analysis.</p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2021 – June 2024</span></div>
                 </div>
@@ -641,7 +627,7 @@
             <div class="resume-section-content">
                 <h2 class="mb-5">Skills</h2>
 
-                <div class="subheading mb-2">Machine Learning & Probabilistic Modelling</div>
+                <div class="subheading mb-2">Machine learning & probabilistic modelling</div>
                 <div class="mb-3">
                     <span class="badge-skill">Bayesian inference</span>
                     <span class="badge-skill">Gaussian processes</span>
@@ -652,14 +638,13 @@
                     <span class="badge-skill">Neural networks</span>
                     <span class="badge-skill">PyTorch</span>
                     <span class="badge-skill">TensorFlow</span>
-                    <span class="badge-skill">MC Dropout</span>
                     <span class="badge-skill">Bayesian neural nets</span>
                     <span class="badge-skill">Gaussian Process Regression</span>
                     <span class="badge-skill">Hierarchical models</span>
                     <span class="badge-skill">Posterior predictive checks</span>
                 </div>
 
-                <div class="subheading mb-2">Data Engineering & Workflow Automation</div>
+                <div class="subheading mb-2">Data engineering & workflow automation</div>
                 <div class="mb-3">
                     <span class="badge-skill">Python</span>
                     <span class="badge-skill">pandas</span>
@@ -673,18 +658,17 @@
                     <span class="badge-skill">Workflow automation</span>
                 </div>
 
-                <div class="subheading mb-2">Statistical Analysis & Evaluation</div>
+                <div class="subheading mb-2">Statistical analysis & evaluation</div>
                 <div class="mb-3">
                     <span class="badge-skill">Hypothesis testing</span>
                     <span class="badge-skill">Time‑series analysis</span>
-                    <span class="badge-skill">Posterior predictive checks</span>
                     <span class="badge-skill">Prior sensitivity</span>
                     <span class="badge-skill">Model diagnostics</span>
                     <span class="badge-skill">Cross‑validation</span>
                     <span class="badge-skill">SHAP explainability</span>
                 </div>
 
-                <div class="subheading mb-2">Programming & Tools</div>
+                <div class="subheading mb-2">Programming & tools</div>
                 <div>
                     <span class="badge-skill">Python</span>
                     <span class="badge-skill">SQL</span>
@@ -709,7 +693,7 @@
                     I enjoy travelling to places with strong natural landscapes and cultural diversity, which has shaped how I think about global sustainability challenges and data‑driven solutions.
                 </p>
                 <p class="mb-0">
-                    I’m also a long‑time Formula&nbsp;1 fan, particularly interested in how data, engineering, and strategy interact under uncertainty – the same themes that motivate my work on tail‑risk and decision‑making under risk.
+                    I’m also a long‑time Formula&nbsp;1 fan, interested in how data, engineering and strategy interact under uncertainty – the same themes that motivate my work on risk and decision‑making.
                 </p>
             </div>
         </section>
@@ -720,7 +704,7 @@
             <div class="resume-section-content">
                 <h2 class="mb-4">Contact</h2>
                 <p class="mb-3">
-                    For opportunities in quantitative research, data science, or PhD supervision related to Bayesian methods, financial econometrics, or sustainability, feel free to reach out.
+                    For roles in quantitative research, data science or work related to Bayesian methods, risk modelling or sustainability, feel free to get in touch.
                 </p>
                 <form action="https://formspree.io/f/mnndpeoz" method="POST">
                     <div class="mb-3">
@@ -757,7 +741,7 @@
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('DOMContentLoaded', revealOnScroll);
 
-        // Dark mode toggle (using body class)
+        // Dark mode toggle (using html class)
         const darkToggle = document.getElementById('darkToggle');
         function applyTheme(theme) {
             if (theme === 'dark') {
