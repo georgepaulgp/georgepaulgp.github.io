@@ -528,52 +528,67 @@
                     <div class="flex-grow-1">
                         <h3 class="mb-1">Bayesian Nonparametric Quantile Function Modelling for Tail Risk</h3>
                         <div class="subheading mb-2">Research proposal – functional Gaussian process quantile regression</div>
+                
                         <p class="mb-2">
-                            This research proposal develops a Bayesian nonparametric model for the <strong>entire</strong> conditional quantile function of returns, viewed as a smooth surface \(q(\alpha, x)\) over quantile level \(\alpha \in (0,1)\) and predictors \(x\). Instead of fitting separate, potentially crossing quantile curves, the model places a functional Gaussian process prior over this surface and enforces monotonicity in \(\alpha\), ensuring coherent Value‑at‑Risk (VaR) and Expected Shortfall (ES) forecasts across multiple confidence levels.
+                            This research proposal develops a Bayesian nonparametric model for the entire conditional quantile function of returns, treated as a smooth surface q(&alpha;, x) over quantile level &alpha; and predictors x. Rather than fitting separate quantile models independently, the idea is to model the full quantile surface jointly so that tail-risk forecasts remain coherent across multiple confidence levels.
                         </p>
+                
                         <p class="mb-2">
-                            Formally, the quantile surface is written as
-                            \[
-                            q(\alpha, x) \sim \mathrm{GP}\big(m_0(\alpha, x), \, K\big((\alpha,x),(\alpha',x')\big)\big),
-                            \]
-                            with a separable kernel \(K((\alpha,x),(\alpha',x')) = K_\alpha(\alpha,\alpha') K_x(x,x')\) so that smoothness in \(\alpha\) and in the predictors can be controlled separately. To guarantee monotonicity in \(\alpha\), the proposal introduces a non‑negative latent process \(f(\alpha,x)\) such that
-                            \[
-                            q(\alpha, x) = \int_0^\alpha f(u, x)\, \mathrm{d}u,\quad f(\alpha,x) \ge 0.
-                            \]
-                            On a discrete grid of quantile levels \(0 < \alpha_1 < \cdots < \alpha_K < 1\) with spacing \(\Delta \alpha\), this becomes
-                            \[
-                            q_k(x) = \sum_{j=1}^k f_j(x)\,\Delta\alpha,\quad f_j(x) = f(\alpha_j,x),
-                            \]
-                            which enforces \(q_1(x) \le \cdots \le q_K(x)\) by construction.
+                            The core object is the conditional quantile function q(&alpha;, x), where &alpha; lies between 0 and 1 and x contains lagged returns and volatility-related predictors. The proposal places a functional Gaussian process prior over this surface:
+                            <br><br>
+                            <code>q(&alpha;, x) ~ GP(m<sub>0</sub>(&alpha;, x), K((&alpha;, x), (&alpha;&prime;, x&prime;)))</code>
+                            <br><br>
+                            where m<sub>0</sub>(&alpha;, x) is the prior mean function and K is a covariance kernel. A separable kernel is used so that dependence across quantile levels and dependence across predictors can be controlled separately:
+                            <br><br>
+                            <code>K((&alpha;, x), (&alpha;&prime;, x&prime;)) = K<sub>&alpha;</sub>(&alpha;, &alpha;&prime;) K<sub>x</sub>(x, x&prime;)</code>
                         </p>
+                
                         <p class="mb-2">
-                            A Gaussian process prior is placed on an unconstrained latent function \(g(\alpha,x)\), and non‑negativity is imposed via a smooth transformation, for example
-                            \[
-                            g(\alpha,x) \sim \mathrm{GP}(0, K),\qquad
-                            f(\alpha,x) = \log\big(1 + \exp(g(\alpha,x))\big),
-                            \]
-                            where the softplus transform ensures \(f(\alpha,x) > 0\) but remains differentiable for gradient‑based inference. Observed returns \(r_{t+1}\) at time \(t\) and a grid of quantile levels \(\{\alpha_k\}_{k=1}^K\) are linked to the quantile surface using the asymmetric Laplace likelihood associated with quantile loss:
-                            \[
-                            p(r_{t+1}\mid q_k(x_t), \alpha_k) \propto
-                            \exp\Big(-\rho_{\alpha_k}\big(r_{t+1} - q_k(x_t)\big)\Big),
-                            \]
-                            where \(\rho_\alpha(u) = |u|\big(\alpha - \mathbf{1}\{u < 0\}\big)\).
+                            A key modelling requirement is monotonicity: if &alpha;<sub>1</sub> &lt; &alpha;<sub>2</sub>, then q(&alpha;<sub>1</sub>, x) &le; q(&alpha;<sub>2</sub>, x). To enforce this, the proposal introduces a non-negative latent function f(&alpha;, x) and defines the quantile function as an integral:
+                            <br><br>
+                            <code>q(&alpha;, x) = &int;<sub>0</sub><sup>&alpha;</sup> f(u, x) du</code>
+                            <br><br>
+                            with <code>f(&alpha;, x) &ge; 0</code>. On a discrete grid of quantile levels, this becomes:
+                            <br><br>
+                            <code>q<sub>k</sub>(x) = &sum;<sub>j=1</sub><sup>k</sup> f<sub>j</sub>(x)&Delta;&alpha;</code>
+                            <br><br>
+                            which guarantees ordered quantiles by construction.
                         </p>
+                
                         <p class="mb-2">
-                            Posterior inference is carried out using constrained variational inference with sparse/inducing‑point GP approximations. A variational distribution \(q_{\text{var}}(g)\) over the latent GP is chosen (e.g. Gaussian over inducing values), and the evidence lower bound
-                            \[
-                            \mathcal{L} =
-                            \mathbb{E}_{q_{\text{var}}}\big[\log p(\{r_t\} \mid g)\big]
-                            - \mathrm{KL}\big(q_{\text{var}}(g)\,\Vert\,p(g)\big)
-                            \]
-                            is maximised using stochastic gradient methods. This architecture aims to remain computationally feasible for multi‑decade daily S&amp;P&nbsp;500 data while preserving the essential monotonic structure across quantiles.
+                            The latent function is built from an unconstrained Gaussian process g(&alpha;, x), transformed using a smooth positive mapping:
+                            <br><br>
+                            <code>g(&alpha;, x) ~ GP(0, K)</code>
+                            <br>
+                            <code>f(&alpha;, x) = log(1 + exp(g(&alpha;, x)))</code>
+                            <br><br>
+                            This softplus transformation ensures positivity while remaining differentiable, which is helpful for efficient optimisation and variational inference.
                         </p>
+                
                         <p class="mb-2">
-                            Empirically, the proposal focuses on S&amp;P&nbsp;500 daily log‑returns from 1990–2025, using predictors such as lagged returns, realised‑volatility proxies (e.g. Parkinson range), rolling volatility and market indicators. A rolling out‑of‑sample design evaluates statistical calibration (quantile loss, CRPS, VaR/ES backtests) and the economic value of volatility‑timing strategies that scale exposure based on model‑implied tail risk. The model will be compared against Student‑t GARCH, Bayesian parametric quantile regression, and machine‑learning quantile methods, with performance assessed before and after transaction costs.
+                            For inference, returns r<sub>t+1</sub> are linked to the quantile surface using the asymmetric Laplace likelihood for each quantile level &alpha;<sub>k</sub>. In compact form:
+                            <br><br>
+                            <code>p(r<sub>t+1</sub> | q<sub>k</sub>(x<sub>t</sub>), &alpha;<sub>k</sub>) &prop; exp(-&rho;<sub>&alpha;<sub>k</sub></sub>(r<sub>t+1</sub> - q<sub>k</sub>(x<sub>t</sub>)))</code>
+                            <br><br>
+                            where the quantile loss function is
+                            <br><br>
+                            <code>&rho;<sub>&alpha;</sub>(u) = u(&alpha; - 1(u &lt; 0))</code>.
+                        </p>
+                
+                        <p class="mb-2">
+                            Because the posterior is analytically intractable, the proposal uses constrained variational inference with sparse Gaussian process approximations. The variational objective is the evidence lower bound:
+                            <br><br>
+                            <code>L = E<sub>q</sub>[log p(r | g)] - KL(q(g) || p(g))</code>
+                            <br><br>
+                            where the first term encourages fit to the observed return data and the second penalises deviation from the prior. Sparse inducing-point approximations are used to make estimation feasible on long financial time series.
+                        </p>
+                
+                        <p class="mb-2">
+                            Empirically, the project focuses on S&amp;P 500 daily returns from 1990 to 2025, using predictors such as lagged returns, realised-volatility proxies, rolling volatility estimates and market indicators. The model will be assessed against GARCH, Bayesian parametric quantile regression and machine-learning quantile benchmarks using quantile loss, CRPS, VaR/ES backtests and the economic performance of volatility-timing strategies under transaction costs.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2026</span></div>
-                </div>
+                </div>    
 
                 <div class="d-flex flex-column flex-md-row justify-content-between mb-4">
                     <div class="flex-grow-1">
@@ -641,13 +656,13 @@
                         <h3 class="mb-0">University of Bath</h3>
                         <div class="subheading mb-2">MSc Data Science</div>
                         <p class="mb-2">
-                            Distinction (overall 80.7%). Core modules covered advanced machine learning, Bayesian statistics, optimisation, statistical modelling and large‑scale data engineering. I focused my optional choices on probabilistic modelling and computational inference, including coursework in Bayesian computation, Gaussian processes and modern deep‑learning methods.
+                            Distinction (overall 80.7%). Core modules covered advanced machine learning, Bayesian statistics, optimisation, statistical modelling and large-scale data analysis.
                         </p>
                         <p class="mb-2">
-                            My MSc dissertation, “Advancing Hierarchical Bayesian Neural Networks for Building Energy Use”, sat at the intersection of Bayesian machine learning and sustainability. It involved designing hierarchical Bayesian neural architectures for Energy‑Use Intensity prediction, implementing full Bayesian inference, and using posterior predictive checks and sensitivity analysis to evaluate robustness and interpretability in a real‑world decarbonisation context.
+                            My MSc research focused on hierarchical Bayesian modelling for building energy use, with particular emphasis on uncertainty quantification, interpretability and practical application to sustainability and carbon assessment.
                         </p>
                         <p class="mb-0">
-                            Alongside the dissertation, group projects exposed me to end‑to‑end data‑science workflows: problem formulation with stakeholders, data acquisition and cleaning, model selection, and communicating results to non‑technical audiences.
+                            Alongside the research, I worked on applied projects involving data cleaning, model development, evaluation and communication of results to technical and non-technical audiences.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2024 – August 2025</span></div>
