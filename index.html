@@ -384,8 +384,8 @@
                 <span class="hero-highlight">Data Science Analyst</span> specialising in Bayesian machine learning, tail‑risk modelling and probability.
             </p>
             <p class="hero-keywords">
-                Bayesian Machine Learning · Gaussian processes · Quantile‑based risk 
-
+                Bayesian machine learning · Gaussian processes · Quantile‑based risk
+            </p>
             <div class="hero-cta">
                 <a href="#projects" class="btn-primary">View projects</a>
             </div>
@@ -441,7 +441,7 @@
                     I am an Analyst in the Advisory team at Buro Happold and a Data Science graduate from the University of Bath, with a Mathematics BSc from the University of Manchester.
                 </p>
                 <p class="mb-3">
-                    My work focuses on Bayesian machine learning, probabilistic modelling, and building practical systems for risk and probabilistic modelling. I enjoy taking messy, real‑world data and turning it into interpretable models that support traceable, quantifiable, uncertainty‑aware decision‑making. – from supply chain cost estimation  through to financial tail‑risk forecasting.
+                    My work focuses on Bayesian machine learning, probabilistic modelling, and building practical systems for risk and probabilistic modelling. I enjoy taking messy, real‑world data and turning it into interpretable models that support traceable, quantifiable, uncertainty‑aware decision‑making – from supply chain cost estimation through to financial tail‑risk forecasting.
                 </p>
                 <p class="mb-0">
                     I am particularly interested in Bayesian nonparametrics, Gaussian processes and quantile‑based risk measures, and in connecting these methods to real economic value and operational decision‑making. I am also interested in the application of machine learning to complex systems, and the use of Bayesian methods to improve the robustness and reliability of machine learning models.
@@ -463,7 +463,6 @@
                             <li>Building data pipelines and developing machine learning models suited to the needs of the business.</li>
                             <li>Working on a state-of-the-art smart city, contributing to digital‑twin workstreams.</li>
                             <li>Guiding responsible use of AI tools in Advisory and shaping applied AI use‑cases.</li>
-
                         </ul>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2025 – Present</span></div>
@@ -530,10 +529,47 @@
                         <h3 class="mb-1">Bayesian Nonparametric Quantile Function Modelling for Tail Risk</h3>
                         <div class="subheading mb-2">Research proposal – functional Gaussian process quantile regression</div>
                         <p class="mb-2">
-                            This research proposal develops a monotone functional Gaussian process quantile regression model that treats the entire conditional quantile function as a smooth surface over quantile level and predictors. The model enforces monotonicity via a non‑negative latent process over the quantile index and uses constrained variational inference, avoiding quantile crossing while remaining computationally tractable.
+                            This research proposal develops a Bayesian nonparametric model for the <strong>entire</strong> conditional quantile function of returns, viewed as a smooth surface \(q(\alpha, x)\) over quantile level \(\alpha \in (0,1)\) and predictors \(x\). Instead of fitting separate, potentially crossing quantile curves, the model places a functional Gaussian process prior over this surface and enforces monotonicity in \(\alpha\), ensuring coherent Value‑at‑Risk (VaR) and Expected Shortfall (ES) forecasts across multiple confidence levels.
                         </p>
                         <p class="mb-2">
-                            The empirical programme focuses on S&amp;P&nbsp;500 daily returns (1990–2025), testing statistical calibration and the economic value of volatility‑timing strategies against GARCH, Bayesian parametric quantile regression and machine‑learning benchmarks under realistic transaction costs.
+                            Formally, the quantile surface is written as
+                            \[
+                            q(\alpha, x) \sim \mathrm{GP}\big(m_0(\alpha, x), \, K\big((\alpha,x),(\alpha',x')\big)\big),
+                            \]
+                            with a separable kernel \(K((\alpha,x),(\alpha',x')) = K_\alpha(\alpha,\alpha') K_x(x,x')\) so that smoothness in \(\alpha\) and in the predictors can be controlled separately. To guarantee monotonicity in \(\alpha\), the proposal introduces a non‑negative latent process \(f(\alpha,x)\) such that
+                            \[
+                            q(\alpha, x) = \int_0^\alpha f(u, x)\, \mathrm{d}u,\quad f(\alpha,x) \ge 0.
+                            \]
+                            On a discrete grid of quantile levels \(0 < \alpha_1 < \cdots < \alpha_K < 1\) with spacing \(\Delta \alpha\), this becomes
+                            \[
+                            q_k(x) = \sum_{j=1}^k f_j(x)\,\Delta\alpha,\quad f_j(x) = f(\alpha_j,x),
+                            \]
+                            which enforces \(q_1(x) \le \cdots \le q_K(x)\) by construction.
+                        </p>
+                        <p class="mb-2">
+                            A Gaussian process prior is placed on an unconstrained latent function \(g(\alpha,x)\), and non‑negativity is imposed via a smooth transformation, for example
+                            \[
+                            g(\alpha,x) \sim \mathrm{GP}(0, K),\qquad
+                            f(\alpha,x) = \log\big(1 + \exp(g(\alpha,x))\big),
+                            \]
+                            where the softplus transform ensures \(f(\alpha,x) > 0\) but remains differentiable for gradient‑based inference. Observed returns \(r_{t+1}\) at time \(t\) and a grid of quantile levels \(\{\alpha_k\}_{k=1}^K\) are linked to the quantile surface using the asymmetric Laplace likelihood associated with quantile loss:
+                            \[
+                            p(r_{t+1}\mid q_k(x_t), \alpha_k) \propto
+                            \exp\Big(-\rho_{\alpha_k}\big(r_{t+1} - q_k(x_t)\big)\Big),
+                            \]
+                            where \(\rho_\alpha(u) = |u|\big(\alpha - \mathbf{1}\{u < 0\}\big)\).
+                        </p>
+                        <p class="mb-2">
+                            Posterior inference is carried out using constrained variational inference with sparse/inducing‑point GP approximations. A variational distribution \(q_{\text{var}}(g)\) over the latent GP is chosen (e.g. Gaussian over inducing values), and the evidence lower bound
+                            \[
+                            \mathcal{L} =
+                            \mathbb{E}_{q_{\text{var}}}\big[\log p(\{r_t\} \mid g)\big]
+                            - \mathrm{KL}\big(q_{\text{var}}(g)\,\Vert\,p(g)\big)
+                            \]
+                            is maximised using stochastic gradient methods. This architecture aims to remain computationally feasible for multi‑decade daily S&amp;P&nbsp;500 data while preserving the essential monotonic structure across quantiles.
+                        </p>
+                        <p class="mb-2">
+                            Empirically, the proposal focuses on S&amp;P&nbsp;500 daily log‑returns from 1990–2025, using predictors such as lagged returns, realised‑volatility proxies (e.g. Parkinson range), rolling volatility and market indicators. A rolling out‑of‑sample design evaluates statistical calibration (quantile loss, CRPS, VaR/ES backtests) and the economic value of volatility‑timing strategies that scale exposure based on model‑implied tail risk. The model will be compared against Student‑t GARCH, Bayesian parametric quantile regression, and machine‑learning quantile methods, with performance assessed before and after transaction costs.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2026</span></div>
@@ -544,7 +580,13 @@
                         <h3 class="mb-0">Advancing Hierarchical Bayesian Neural Networks for Building Energy Use</h3>
                         <div class="subheading mb-2">MSc research project · Distinction (81%)</div>
                         <p class="mb-2">
-                            Developed hierarchical Bayesian neural network models for office‑building Energy‑Use Intensity prediction, combining domain‑informed priors, flexible likelihoods and posterior predictive checks. The work emphasised uncertainty quantification for transparent carbon assessments and model structures that reflect building heterogeneity.
+                            For my MSc dissertation, I developed hierarchical Bayesian neural network models for predicting Energy‑Use Intensity (EUI) in office buildings. The goal was to move beyond single point forecasts and produce uncertainty‑aware predictions that remain interpretable for carbon and energy‑performance assessment. The models combined building‑level covariates (e.g. floor area, age, location and usage type) with a hierarchical structure that captures group‑level effects and heterogeneity across building segments.
+                        </p>
+                        <p class="mb-2">
+                            Technically, I used Bayesian neural networks with group‑specific parameters and hyperpriors that pool information across buildings while allowing segment‑level deviations. Priors were chosen to favour parsimonious structures but still permit non‑linear responses in key drivers of energy use. Posterior inference was implemented using Hamiltonian Monte Carlo and variational techniques; posterior predictive checks, prior‑sensitivity analysis and out‑of‑sample calibration diagnostics were used to stress‑test model assumptions. The result was a set of EUI forecasts with credible intervals that support transparent, audit‑aligned building benchmarking rather than opaque black‑box predictions.
+                        </p>
+                        <p class="mb-0">
+                            This work directly informed later projects on emissions traceability and carbon‑risk modelling, and gave me hands‑on experience balancing model flexibility, interpretability and computational cost in real sustainability datasets.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025 (ongoing development)</span></div>
@@ -555,7 +597,7 @@
                         <h3 class="mb-0">Bayesian Energy Use Estimation</h3>
                         <div class="subheading mb-2">MSc – hierarchical Bayesian models</div>
                         <p class="mb-2">
-                            Estimated Energy‑Use Intensity in office buildings using hierarchical Bayesian models. The project showed how uncertainty‑aware quantile estimates can support transparent, audit‑aligned carbon assessments where traditional point estimates are fragile.
+                            Earlier in the MSc, I implemented hierarchical Bayesian models for EUI estimation as a precursor to the neural‑network work. Using priors informed by engineering knowledge and building physics, these models showed how uncertainty‑aware quantile estimates could support transparent, audit‑aligned carbon assessments, particularly where traditional point estimates are fragile or data coverage is sparse.
                         </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">2025</span></div>
@@ -576,7 +618,7 @@
                 <div class="d-flex flex-column flex-md-row justify-content-between">
                     <div class="flex-grow-1">
                         <h3 class="mb-0">Reinforcement Learning with PPO</h3>
-                        <div class="subheading mb-2">Coursework – OpenAI Gym Boxing‑v5</div>
+                        <div class="subheading mb-2">MSc – OpenAI Gym Boxing‑v5</div>
                         <p class="mb-0">
                             Implemented and tuned a PPO agent in the Boxing‑v5 environment, with a custom CNN feature extractor and orthogonal initialisation. Explored how reward shaping and policy‑update dynamics influence long‑run behaviour, motivating applications of RL in real‑world control problems.
                         </p>
@@ -598,7 +640,15 @@
                     <div class="flex-grow-1">
                         <h3 class="mb-0">University of Bath</h3>
                         <div class="subheading mb-2">MSc Data Science</div>
-                        <p>Distinction (overall  80.7%). Dissertation on Bayesian Machine Learning.</p>
+                        <p class="mb-2">
+                            Distinction (overall 80.7%). Core modules covered advanced machine learning, Bayesian statistics, optimisation, statistical modelling and large‑scale data engineering. I focused my optional choices on probabilistic modelling and computational inference, including coursework in Bayesian computation, Gaussian processes and modern deep‑learning methods.
+                        </p>
+                        <p class="mb-2">
+                            My MSc dissertation, “Advancing Hierarchical Bayesian Neural Networks for Building Energy Use”, sat at the intersection of Bayesian machine learning and sustainability. It involved designing hierarchical Bayesian neural architectures for Energy‑Use Intensity prediction, implementing full Bayesian inference, and using posterior predictive checks and sensitivity analysis to evaluate robustness and interpretability in a real‑world decarbonisation context.
+                        </p>
+                        <p class="mb-0">
+                            Alongside the dissertation, group projects exposed me to end‑to‑end data‑science workflows: problem formulation with stakeholders, data acquisition and cleaning, model selection, and communicating results to non‑technical audiences.
+                        </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2024 – August 2025</span></div>
                 </div>
@@ -607,7 +657,12 @@
                     <div class="flex-grow-1">
                         <h3 class="mb-0">University of Manchester</h3>
                         <div class="subheading mb-2">BSc Mathematics</div>
-                        <p>Upper Second Class Honours (2:1), with a focus on probability, statistics, optimisation and numerical analysis.</p>
+                        <p class="mb-2">
+                            Upper Second Class Honours (2:1). The degree provided a rigorous grounding in analysis, linear algebra, probability and statistics, which underpins my later work in machine learning and quantitative risk. Key modules included stochastic processes, statistical inference, optimisation, numerical analysis and differential equations.
+                        </p>
+                        <p class="mb-0">
+                            I particularly enjoyed courses in probability and stochastic processes, which built the intuition for modelling uncertainty and time‑series behaviour that I now rely on in Bayesian econometrics and financial risk modelling.
+                        </p>
                     </div>
                     <div class="flex-shrink-0"><span class="text-primary">September 2021 – June 2024</span></div>
                 </div>
