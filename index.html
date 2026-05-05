@@ -745,17 +745,6 @@
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('DOMContentLoaded', revealOnScroll);
 
-        // Dark mode toggle (using html class)
-        const darkToggle = document.getElementById('darkToggle');
-        function applyTheme(theme) {
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark-mode');
-                darkToggle.innerText = '☀️';
-            } else {
-                document.documentElement.classList.remove('dark-mode');
-                darkToggle.innerText = '🌙';
-            }
-        }
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme) {
             applyTheme(storedTheme);
