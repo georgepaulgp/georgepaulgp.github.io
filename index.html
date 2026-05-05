@@ -275,96 +275,6 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-
-        /* Dark mode: subtle, still neutral */
-        .dark-mode {
-            background: #121212 !important;
-            color: #e5e7eb !important;
-        }
-
-        .dark-mode body {
-            background: #121212;
-        }
-
-        .dark-mode .hero-section {
-            background: linear-gradient(
-                135deg,
-                #18181b 0%,
-                #020617 50%,
-                #111827 100%
-            );
-        }
-
-        .dark-mode .resume-section,
-        .dark-mode .resume-section:nth-of-type(even) {
-            background: #18181b;
-        }
-
-        .dark-mode .resume-section-content {
-            color: #e5e7eb;
-        }
-
-        .dark-mode .navbar {
-            background-color: #020617 !important;
-            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.9);
-        }
-
-        .dark-mode .social-icon {
-            background: #020617;
-            border-color: rgba(148, 163, 184, 0.4);
-            color: #e5e7eb;
-        }
-
-        .dark-mode .social-icon:hover {
-            background: #333333;
-        }
-
-        .dark-mode .btn-primary,
-        .dark-mode .cv-btn {
-            background-color: #333333 !important;
-            color: #ffffff !important;
-        }
-
-        .dark-mode .btn-outline-primary {
-            border-color: #d4d4d4;
-            color: #e5e7eb;
-        }
-
-        .dark-mode .btn-outline-primary:hover {
-            background: #d4d4d4;
-            color: #111827;
-        }
-
-        .dark-mode .badge-skill {
-            background: #27272a;
-            color: #e5e7eb;
-        }
-
-        .dark-toggle {
-            position: fixed;
-            top: 1.25rem;
-            right: 1.25rem;
-            z-index: 9999;
-            background: #ffffff;
-            color: #111827;
-            border: 1px solid rgba(148, 163, 184, 0.7);
-            border-radius: 999px;
-            width: 44px;
-            height: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 1.3rem;
-            box-shadow: var(--shadow-md);
-        }
-
-        .dark-mode .dark-toggle {
-            background: #020617;
-            color: #f9fafb;
-            border-color: rgba(148, 163, 184, 0.7);
-        }
-
         @media (max-width: 991.98px) {
             .hero-section {
                 padding-top: 6rem;
@@ -373,8 +283,6 @@
     </style>
 </head>
 <body id="page-top">
-    <!-- Dark mode toggle -->
-    <button class="dark-toggle" id="darkToggle" title="Toggle dark mode" aria-label="Toggle dark mode">🌙</button>
 
     <!-- Hero (kept as a standalone section above main resume content) -->
     <section class="hero-section fade-in">
@@ -752,12 +660,6 @@
             applyTheme('dark');
         }
 
-        darkToggle.addEventListener('click', () => {
-            const isDark = document.documentElement.classList.toggle('dark-mode');
-            const theme = isDark ? 'dark' : 'light';
-            localStorage.setItem('theme', theme);
-            darkToggle.innerText = isDark ? '☀️' : '🌙';
-        });
 
         // Contact form with spinner
         const form = document.querySelector("#contact form");
